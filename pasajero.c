@@ -5,14 +5,17 @@
 
 struct _Pasajero
 {
+    char nombre[30];
     int posicion;
     int edad;
 };
 
 
-Pasajero crearPasajero(int posicion, int edad)
+Pasajero crearPasajero(char nombre[30], int posicion, int edad)
 {
     Pasajero pasajero = malloc(sizeof(struct _Pasajero));
+
+    strcpy(pasajero->nombre, nombre);
 
     pasajero->posicion = posicion;
 
@@ -25,16 +28,45 @@ Pasajero crearPasajero(int posicion, int edad)
 
 Pasajero crearPasajeroPorTeclado()
 {
-    int posicion;
+    char nombre[30];
+    int posicion = -1;
     int edad;
 
-    printf("\nIngrese posicion de pasajero: ");
-    scanf("%d", &posicion);
+    printf("\n\nCreando un pasajero...");
 
-    printf("\nIngrese edad del pasajero: ");
+    printf("\n- Ingrese nombre del pasajero: ");
+    fflush(stdin);
+    gets(nombre);
+
+    printf("\n- Ingrese edad del pasajero: ");
     scanf("%d", &edad);
 
-    return crearPasajero(posicion, edad);
+    // La posicion sera seteada por agregarPasajero()
+    return crearPasajero(nombre, posicion, edad);
+}
+
+
+Pasajero inicializarPasajero()
+{
+    return crearPasajero("", -1, -1);
+}
+
+
+char * getNombrePasajero(Pasajero pasajero)
+{
+    return pasajero->nombre;
+}
+
+
+int getEdadPasajero(Pasajero pasajero)
+{
+    return pasajero->edad;
+}
+
+
+void setPosicionPasajero(Pasajero pasajero, int nuevaPosicion)
+{
+    pasajero->posicion = nuevaPosicion;
 }
 
 
@@ -46,7 +78,11 @@ void destruirPasajero(Pasajero pasajero)
 
 void mostrarPasajero(Pasajero pasajero)
 {
-    printf("\nPasajero:");
-    printf("\n\tPosicion: %d", pasajero->posicion);
-    printf("\n\tEdad: %d", pasajero->edad);
+    if(pasajero->edad != -1)
+    {
+        printf("\nPasajero:");
+        printf("\n\t- Nombre: %s", pasajero->nombre);
+        printf("\n\t- Posicion: %d", pasajero->posicion + 1);
+        printf("\n\t- Edad: %d", pasajero->edad);
+    }
 }

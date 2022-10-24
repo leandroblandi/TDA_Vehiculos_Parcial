@@ -1,8 +1,24 @@
 # depslib dependency file v1.0
-1666611804 source:e:\downloads\nueva carpeta\leandro_blandi_44098528_tema_1\main.c
+1666615313 source:e:\downloads\nueva carpeta\leandro_blandi_44098528_tema_1\main.c
 	<stdio.h>
 	<stdlib.h>
+	"vehiculo.h"
 	"pasajero.h"
 
-1666611838 e:\downloads\nueva carpeta\leandro_blandi_44098528_tema_1\pasajero.h
+1666615805 e:\downloads\nueva carpeta\leandro_blandi_44098528_tema_1\pasajero.h
+
+1666615996 source:e:\downloads\nueva carpeta\leandro_blandi_44098528_tema_1\pasajero.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"pasajero.h"
+
+1666616443 source:e:\downloads\nueva carpeta\leandro_blandi_44098528_tema_1\vehiculo.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"vehiculo.h"
+	"pasajero.h"
+
+1666615959 e:\downloads\nueva carpeta\leandro_blandi_44098528_tema_1\vehiculo.h
 
