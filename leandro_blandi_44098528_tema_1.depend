@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1666611804 source:e:\downloads\nueva carpeta\leandro_blandi_44098528_tema_1\main.c
+	<stdio.h>
+	<stdlib.h>
+	"pasajero.h"
+
+1666611838 e:\downloads\nueva carpeta\leandro_blandi_44098528_tema_1\pasajero.h
+
