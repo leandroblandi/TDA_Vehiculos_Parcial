@@ -1,3 +1,8 @@
+/*-----------------------
+ | vehiculo.c
+ | Author: Leandro Blandi
+ ------------------------*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -17,6 +22,11 @@ struct _Vehiculo
     int pasajerosABordo;
     float promedioEdadPasajeros;
 };
+
+
+/*---------------
+ | Constructores
+ ----------------*/
 
 Vehiculo crearVehiculo(char marca[20], char color[20], int anio, float promedioEdadPasajeros)
 {
@@ -65,30 +75,64 @@ Vehiculo crearVehiculoPorTeclado()
 }
 
 
+/*-----------
+ | Destructor
+ ------------*/
+
+void destruirVehiculo(Vehiculo vehiculo)
+{
+    for(int i = 0; i < CANTIDAD_PASAJEROS; i++)
+    {
+        if(vehiculo->pasajeros[i] != NULL)
+        {
+            destruirPasajero(vehiculo->pasajeros[i]);
+        }
+    }
+    free(vehiculo);
+}
+
+
+/*---------------------------------
+ | Funciones individuales: Vehiculo
+ ---------------------------------*/
+
 void mostrarVehiculo(Vehiculo vehiculo)
 {
+    // Lo usamos como bandera para saber si no hay pasajeros
+    int pasajerosEnVehiculo = CANTIDAD_PASAJEROS;
+
     printf("\nMostrando Vehiculo...");
     printf("\n\t- Marca: %s", vehiculo->marca);
     printf("\n\t- Color: %s", vehiculo->color);
     printf("\n\t- Anio: %d", vehiculo->anio);
-    printf("\n\t- Promedio edad pasajeros: %.2f", vehiculo->promedioEdadPasajeros / vehiculo->pasajerosABordo);
 
-    int pasajerosEnVehiculo = CANTIDAD_PASAJEROS;
+    // Revisamos si podemos promediar
+    if(vehiculo->pasajerosABordo > 0)
+    {
+        printf("\n\t- Promedio edad pasajeros: %.2f", vehiculo->promedioEdadPasajeros / vehiculo->pasajerosABordo);
+    }
 
+    // Intentamos mostrar los pasajeros
     for(int i = 0; i < CANTIDAD_PASAJEROS; i++)
     {
         mostrarPasajero(vehiculo->pasajeros[i]);
+        // Si el pasajero esta vacio, entonces decrementamos la bandera en 1
         if(getEdadPasajero(vehiculo->pasajeros[i]) == -1)
         {
             pasajerosEnVehiculo--;
         }
     }
+
     if(pasajerosEnVehiculo == 0)
     {
         printf("\nNo hay pasajeros en el vehiculo...");
     }
 }
 
+
+/*---------------------------------------------
+ | Funciones de arreglo: Pasajeros en Vehiculo
+ ---------------------------------------------*/
 
 void agregarPasajeros(Vehiculo vehiculo, int cantidadPasajeros)
 {
@@ -102,25 +146,57 @@ void agregarPasajeros(Vehiculo vehiculo, int cantidadPasajeros)
             posicionLibre = buscarPosicionLibre(vehiculo);
             if(posicionLibre != -1)
             {
+                // Agregamos un pasajero por teclado a esa posicion
                 vehiculo->pasajeros[posicionLibre] = crearPasajeroPorTeclado();
+                // Le asignamos la posicion al atributo mediante el setter
                 setPosicionPasajero(vehiculo->pasajeros[posicionLibre], posicionLibre);
+                // Acumulamos la edad, para despues promediarla
                 vehiculo->promedioEdadPasajeros += getEdadPasajero(vehiculo->pasajeros[i]);
                 vehiculo->pasajerosABordo++;
             }
         }
     }
 
+    // Si el parametro se excede de la cantidad maxima
     if(cantidadPasajeros > CANTIDAD_PASAJEROS)
     {
         printf("\nLa cantidad maxima es de %d pasajeros (ingresado: %d)...", CANTIDAD_PASAJEROS, cantidadPasajeros);
     }
 
+    // Si el vehiculo ya esta lleno
     if(vehiculo->pasajerosABordo == CANTIDAD_PASAJEROS)
     {
         printf("\nNo hay mas espacio en el vehiculo...");
     }
 }
 
+
+void ordenarPasajerosPorNombre(Vehiculo vehiculo)
+{
+
+    Pasajero pasajeroAuxiliar;
+
+    printf("\nOrdenando pasajeros por nombre...");
+
+    for(int i = 0; i < CANTIDAD_PASAJEROS; i++)
+    {
+        for(int j = 0; j < CANTIDAD_PASAJEROS - 1; j++)
+        {
+            // strcmp > 0 cuando str1 es mayor que str2
+            if(strcmp(getNombrePasajero(vehiculo->pasajeros[j]), getNombrePasajero(vehiculo->pasajeros[j+1])) > 0)
+            {
+                pasajeroAuxiliar = vehiculo->pasajeros[j];
+                vehiculo->pasajeros[j] = vehiculo->pasajeros[j+1];
+                vehiculo->pasajeros[j+1] = pasajeroAuxiliar;
+            }
+        }
+    }
+}
+
+
+/*---------------------
+ | Funciones especiales
+ ----------------------*/
 
 int buscarPosicionLibre(Vehiculo vehiculo)
 {
@@ -138,23 +214,3 @@ int buscarPosicionLibre(Vehiculo vehiculo)
 }
 
 
-void ordenarPasajerosPorNombre(Vehiculo vehiculo)
-{
-
-    Pasajero pasajeroAuxiliar;
-
-    printf("\nOrdenando pasajeros por nombre...");
-
-    for(int i = 0; i < CANTIDAD_PASAJEROS; i++)
-    {
-        for(int j = 0; j < CANTIDAD_PASAJEROS - 1; j++)
-        {
-            if(strcmp(getNombrePasajero(vehiculo->pasajeros[j]), getNombrePasajero(vehiculo->pasajeros[j+1])) > 0)
-            {
-                pasajeroAuxiliar = vehiculo->pasajeros[j];
-                vehiculo->pasajeros[j] = vehiculo->pasajeros[j+1];
-                vehiculo->pasajeros[j+1] = pasajeroAuxiliar;
-            }
-        }
-    }
-}

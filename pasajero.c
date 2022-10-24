@@ -1,3 +1,8 @@
+/*-----------------------
+ | pasajero.c
+ | Author: Leandro Blandi
+ ------------------------*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -10,6 +15,10 @@ struct _Pasajero
     int edad;
 };
 
+
+/*---------------
+ | Constructores
+ ----------------*/
 
 Pasajero crearPasajero(char nombre[30], int posicion, int edad)
 {
@@ -48,9 +57,14 @@ Pasajero crearPasajeroPorTeclado()
 
 Pasajero inicializarPasajero()
 {
+    // Pasajero filtrable
     return crearPasajero("", -1, -1);
 }
 
+
+ /*--------
+ | Getters
+ ---------*/
 
 char * getNombrePasajero(Pasajero pasajero)
 {
@@ -64,11 +78,19 @@ int getEdadPasajero(Pasajero pasajero)
 }
 
 
+ /*--------
+ | Setter
+ ---------*/
+
 void setPosicionPasajero(Pasajero pasajero, int nuevaPosicion)
 {
     pasajero->posicion = nuevaPosicion;
 }
 
+
+/*---------------
+ | Destructor
+ ----------------*/
 
 void destruirPasajero(Pasajero pasajero)
 {
@@ -76,8 +98,13 @@ void destruirPasajero(Pasajero pasajero)
 }
 
 
+/*---------------------------------
+ | Funciones individuales: Pasajero
+ ---------------------------------*/
+
 void mostrarPasajero(Pasajero pasajero)
 {
+    // Si el pasajero no esta vacio
     if(pasajero->edad != -1)
     {
         printf("\nPasajero:");

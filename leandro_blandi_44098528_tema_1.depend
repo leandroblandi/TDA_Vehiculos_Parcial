@@ -5,20 +5,20 @@
 	"vehiculo.h"
 	"pasajero.h"
 
-1666615805 e:\downloads\nueva carpeta\leandro_blandi_44098528_tema_1\pasajero.h
+1666616869 e:\downloads\nueva carpeta\leandro_blandi_44098528_tema_1\pasajero.h
 
-1666615996 source:e:\downloads\nueva carpeta\leandro_blandi_44098528_tema_1\pasajero.c
+1666616840 source:e:\downloads\nueva carpeta\leandro_blandi_44098528_tema_1\pasajero.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"pasajero.h"
 
-1666616443 source:e:\downloads\nueva carpeta\leandro_blandi_44098528_tema_1\vehiculo.c
+1666616959 source:e:\downloads\nueva carpeta\leandro_blandi_44098528_tema_1\vehiculo.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"vehiculo.h"
 	"pasajero.h"
 
-1666615959 e:\downloads\nueva carpeta\leandro_blandi_44098528_tema_1\vehiculo.h
+1666616883 e:\downloads\nueva carpeta\leandro_blandi_44098528_tema_1\vehiculo.h
 
